@@ -49,7 +49,7 @@
           <createdDate>2019-03-15 07:36:03.626 UTC</createdDate>
         </model.ActionItem>
       </aiList>
-      <currentActionItem reference="../aiList/model.ActionItem"/>
+      <currentActionItem reference="../aiList/model.ActionItem[6]"/>
       <emptyActionItem>
         <actionItemName></actionItemName>
         <description></description>
@@ -84,7 +84,7 @@
           </model.AccessItem>
         </accessList>
       </accessManager>
-      <sortDirection>1</sortDirection>
+      <sortDirection>0</sortDirection>
       <sortFactor1>0</sortFactor1>
       <sortFactor2>0</sortFactor2>
       <memberList>
