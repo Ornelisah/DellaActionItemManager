@@ -317,7 +317,7 @@ public class ConsoleScreen extends Pane {
 
 		copyrightLabel.setFont(Font.font("Dialog", FontWeight.BOLD, 11));
 		copyrightLabel.setAlignment(Pos.BASELINE_RIGHT);
-		copyrightLabel.setText("Copyright © 2018 CarterRadley");
+		copyrightLabel.setText("Copyright © 2019 OrnellaElisah");
 		copyrightLabel.setLayoutX(0);
 		copyrightLabel.setLayoutY(400);
 		copyrightLabel.setMinWidth(640);

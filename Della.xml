@@ -49,38 +49,38 @@
           <createdDate>2019-03-15 07:36:03.626 UTC</createdDate>
         </model.ActionItem>
       </aiList>
-      <currentActionItem>
+      <currentActionItem reference="../aiList/model.ActionItem"/>
+      <emptyActionItem>
         <actionItemName></actionItemName>
         <description></description>
         <resolution></resolution>
         <status></status>
-      </currentActionItem>
-      <emptyActionItem reference="../currentActionItem"/>
+      </emptyActionItem>
       <accessManager>
         <accessList>
           <model.AccessItem>
-            <name>Five</name>
-            <nameIndex>4</nameIndex>
-          </model.AccessItem>
-          <model.AccessItem>
-            <name>Four</name>
-            <nameIndex>3</nameIndex>
-          </model.AccessItem>
-          <model.AccessItem>
-            <name>One</name>
-            <nameIndex>0</nameIndex>
-          </model.AccessItem>
-          <model.AccessItem>
-            <name>Six</name>
-            <nameIndex>5</nameIndex>
+            <name>Two</name>
+            <nameIndex>1</nameIndex>
           </model.AccessItem>
           <model.AccessItem>
             <name>Three</name>
             <nameIndex>2</nameIndex>
           </model.AccessItem>
           <model.AccessItem>
-            <name>Two</name>
-            <nameIndex>1</nameIndex>
+            <name>Six</name>
+            <nameIndex>5</nameIndex>
+          </model.AccessItem>
+          <model.AccessItem>
+            <name>One</name>
+            <nameIndex>0</nameIndex>
+          </model.AccessItem>
+          <model.AccessItem>
+            <name>Four</name>
+            <nameIndex>3</nameIndex>
+          </model.AccessItem>
+          <model.AccessItem>
+            <name>Five</name>
+            <nameIndex>4</nameIndex>
           </model.AccessItem>
         </accessList>
       </accessManager>
