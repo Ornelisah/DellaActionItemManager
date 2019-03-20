@@ -94,7 +94,7 @@ public class MainScreen {
 		theStage.setX(X);
 		theStage.setY(Y);
 
-		theStage.setTitle("DellaFX-04"); // Label the stage's window
+		theStage.setTitle("DellaFX-05"); // Label the stage's window
 
 		consoleButton.setText("    Console    ");
 		actionItemsButton.setText("    Action Items    ");

@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 /**
-* <p>
+ * <p>
  * Title: ElementManager
  * </p>
  *
@@ -12,35 +12,42 @@ import java.util.ArrayList;
  * </p>
  *
  * <p>
- * Copyright: Copyright © 2007
+ * Copyright: Copyright ï¿½ 2007
  * </p>
  *
  * @author Lynn Robert Carter
  * @version 1.04
  */
 public class ElementList {
-	
+
 	private ArrayList<Element> theList = null;
 	private String unaddedName = "";
 	private int currentSelectedElementIndex = -1;
 
-	
 
-    /**
-     * These is the constructor method for the ElementManager class.
-     *
-     */
-    public ElementList() { theList = new ArrayList<Element>(); }
-    
-    /**
-     * addElement is used to establish a sorted list of Elements (a name and a list of associated named, 
-     *      returning the index where it was placed in the list.  The routine throws an exception if the 
-     *      name duplicates a name already found in the list (ignoring case).
-     * @param name - A name string 
-     * @return index - the index where the name was inserted into the list (used for managing select lists)
-     * @exception - This name duplicates a name already found in the list.
-     */
-    public int addElement(String name) throws Exception {
+
+
+	/**
+	 * These is the constructor method for the ElementManager class.
+	 *
+	 */
+	public ElementList() { 
+		theList = new ArrayList<Element>(); 
+
+
+	}
+
+
+
+	/**
+	 * addElement is used to establish a sorted list of Elements (a name and a list of associated named, 
+	 *      returning the index where it was placed in the list.  The routine throws an exception if the 
+	 *      name duplicates a name already found in the list (ignoring case).
+	 * @param name - A name string 
+	 * @return index - the index where the name was inserted into the list (used for managing select lists)
+	 * @exception - This name duplicates a name already found in the list.
+	 */
+	public int addElement(String name) throws Exception {
 
 		if (name.compareTo("") == 0)
 			throw new Exception("The new name must not be empty!   ");
@@ -77,12 +84,12 @@ public class ElementList {
 			return 0;
 		}
 	}
-    
+
 	/**
 	 * Removes an element from the list.
 	 * @param elemIndex - The index of the elemnent to be removed
 	 */
-    public void removeElement(int elemIndex) { theList.remove(elemIndex); }
+	public void removeElement(int elemIndex) { theList.remove(elemIndex); }
 
 	/**
 	 * Find an element in the list.
@@ -92,7 +99,7 @@ public class ElementList {
 	 * Added for Della04
 	 */
 	public int findElement(String name) {
-		if (name.length()==0) return -1;
+	if (name.length()==0) return -1;
 		int size = theList.size();
 		int ndx = 0;
 		while (ndx < size)
@@ -146,7 +153,7 @@ public class ElementList {
 	 * Provide the index of the currently selected element
 	 */
 	public int getCurrentSelectedElementIndex() { return currentSelectedElementIndex; }
-    
+
 	/**
 	 * Get the ith element from the list
 	 */

@@ -1,6 +1,9 @@
 package gui;
 
 import utility.*;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.text.SimpleDateFormat;
 
 import control.Controller;
@@ -20,12 +23,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import model.ActionItem;
 import model.ActionItemManager;
+import model.Element;
+import model.ElementList;
 
 public class ActionItemsScreen extends Pane {
 
 	// Action Item Screen Constants
 
 	public static final int noItemSelected = -1;
+
 
 	// Action Item Screen Attributes
 
@@ -62,6 +68,13 @@ public class ActionItemsScreen extends Pane {
 	Label sortDirectionLabel = new Label();
 	// Added for Della02 (end)
 
+	// Added for Della05 (start)
+	private String selectedMember="";
+	Label assignedToMemberLabel = new Label();
+	ElementList memberList = new ElementList();
+	ComboBox<String> assignedToMemberComboBox = new ComboBox<String>();
+	// Added for Della05 (end)
+
 	Label selectedLabel = new Label();
 	Label nameLabel = new Label();
 	TextField nameTextField = new TextField();
@@ -97,6 +110,7 @@ public class ActionItemsScreen extends Pane {
 		// Use a modified singleton pattern to access the application's state
 		theController = Controller.getInstance();
 		aiM = theController.getActionItemManager();
+
 
 		// Set up all of the Graphical User Interface elements and place them on the
 		// screen
@@ -162,9 +176,9 @@ public class ActionItemsScreen extends Pane {
 		sortDirectionComboBox.setMinHeight(25);
 		sortDirectionComboBox.setMaxHeight(25);
 		sortDirectionComboBox.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> {
-					sortDirection();
-				});
+		.addListener((observable, oldValue, newValue) -> {
+			sortDirection();
+		});
 
 		sortFactor1Label.setFont(Font.font("Dialog", FontWeight.BOLD, 11));
 		sortFactor1Label.setText("First Sorting Factor:");
@@ -303,6 +317,30 @@ public class ActionItemsScreen extends Pane {
 		actionItemLabel2.setMinHeight(15);
 		actionItemLabel2.setMaxHeight(15);
 
+		//Added for Della05 (start)
+
+		assignedToMemberLabel.setFont(Font.font("Dialog", FontWeight.BOLD, 11));
+		assignedToMemberLabel.setText("Assigned to Member: ");
+		assignedToMemberLabel.setLayoutX(450);
+		assignedToMemberLabel.setLayoutY(315);
+		assignedToMemberLabel.setMinWidth(200);
+		assignedToMemberLabel.setMaxWidth(200);
+		assignedToMemberLabel.setMinHeight(15);
+		assignedToMemberLabel.setMaxHeight(15);
+
+
+		assignedToMemberComboBox.setLayoutX(450);
+		assignedToMemberComboBox.setLayoutY(330);
+		assignedToMemberComboBox.setMinWidth(175);
+		assignedToMemberComboBox.setMaxWidth(175);
+		assignedToMemberComboBox.setMinHeight(25);
+		assignedToMemberComboBox.setMaxHeight(25);
+		assignedToMemberComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			selectMemberComboBox();
+		});
+
+		//Added for Della05 (end)
+
 		statusLabel.setFont(Font.font("Dialog", FontWeight.BOLD, 11));
 		statusLabel.setText("Status:");
 		statusLabel.setAlignment(Pos.BASELINE_RIGHT);
@@ -365,7 +403,7 @@ public class ActionItemsScreen extends Pane {
 				sortFactor2ComboBox, selectedLabel, nameLabel, nameTextField, descriptionLabel, descriptionScrollPane,
 				resolutionLabel, resolutionScrollPane, datesLabel, creationLabel, creationValueLabel, dueDateLabel,
 				dueDateTextField, formatLabel, actionItemLabel2, statusLabel, statusComboBox, updateButton, clearButton,
-				createButton, unsavedChangesLabel);
+				createButton, unsavedChangesLabel,assignedToMemberLabel,assignedToMemberComboBox);
 
 		// Done updating the GUI
 		updatingGUI = false;
@@ -383,6 +421,9 @@ public class ActionItemsScreen extends Pane {
 		resolutionTextArea.setText("");
 		creationValueLabel.setText("");
 		dueDateTextField.setText("");
+		//Added for Della05
+		assignedToMemberComboBox.getSelectionModel().select(noItemSelected);
+
 
 		// Select the Open Status
 		statusComboBox.getSelectionModel().select(ActionItemManager.statusOpen);
@@ -416,7 +457,7 @@ public class ActionItemsScreen extends Pane {
 		try {
 			ai = aiM.createActionItem(nameTextField.getText(), descriptionTextArea.getText(),
 					resolutionTextArea.getText(), statusComboBox.getSelectionModel().getSelectedItem().toString(),
-					dueDateTextField.getText());
+					dueDateTextField.getText(),selectedMember);
 		} catch (Exception ex) {
 			MessageBox.show(ex.getMessage(), "Error");
 			return;
@@ -426,8 +467,8 @@ public class ActionItemsScreen extends Pane {
 		creationValueLabel.setText(dateFormat.format(ai.getCreatedDate()));
 		updatingGUI = true;
 		loadComboBoxData(aiM.getActionItemNames(), aiM.getActionItemIndex(aiM.getCurrentActionItemName())); // Modified
-																											// for
-																											// Della02
+		// for
+		// Della02
 		updatingGUI = false;
 
 		theController.setDirtyFlag(true);
@@ -445,7 +486,7 @@ public class ActionItemsScreen extends Pane {
 		try {
 			aiM.updateActionItem(nameTextField.getText(), descriptionTextArea.getText(), resolutionTextArea.getText(),
 					statusComboBox.getSelectionModel().getSelectedItem().toString(), dueDateTextField.getText(),
-					aiListComboBox.getSelectionModel().getSelectedIndex());
+					aiListComboBox.getSelectionModel().getSelectedIndex(),selectedMember);
 		} catch (Exception ex) {
 			MessageBox.show(ex.getMessage(), "Error");
 			return;
@@ -456,8 +497,8 @@ public class ActionItemsScreen extends Pane {
 		// ComboBox select list. - Added for Della01
 		updatingGUI = true;
 		loadComboBoxData(aiM.getActionItemNames(), aiM.getActionItemIndex(aiM.getCurrentActionItemName())); // Modified
-																											// for
-																											// Della02
+		// for
+		// Della02
 		updatingGUI = false;
 
 		theController.setDirtyFlag(true);
@@ -478,6 +519,9 @@ public class ActionItemsScreen extends Pane {
 			statusComboBox.getSelectionModel().select(ActionItemManager.statusOpen);
 			creationValueLabel.setText("");
 			dueDateTextField.setText("");
+			/*//Added for Della05
+			assignedToMemberComboBox.getItems().add("-No Member Selected-");*/
+
 		} else {
 			// Define the text fields
 			updatingGUI = true;
@@ -486,6 +530,15 @@ public class ActionItemsScreen extends Pane {
 			descriptionTextArea.positionCaret(0);
 			resolutionTextArea.setText(ai.getResolution());
 			resolutionTextArea.positionCaret(0);
+			/*//Added for Della05
+			if (selectedMember.length()==0)
+				assignedToMemberComboBox.getItems().add("-No Member Selected-");
+			else {
+				int selectedMemberIndex= aiM.getCurrentAssignedMemberIndex();
+				aiM.getMemberList().setCurrentSelectedElementIndex(selectedMemberIndex);
+				assignedToMemberComboBox.getSelectionModel().select(selectedMemberIndex);
+			}*/
+
 		}
 		// Define the status ComboBox value
 		for (int i = 0; i < ActionItemManager.statusStrings.length; ++i)
@@ -504,6 +557,7 @@ public class ActionItemsScreen extends Pane {
 		else
 			dueDateTextField.setText("");
 
+
 		// Set up the selection Combo Boxes - Modified for Della02
 		sortDirectionComboBox.getSelectionModel().select(aiM.getSortDirection());
 		sortFactor1ComboBox.getSelectionModel().select(aiM.getSortFactor1());
@@ -511,7 +565,8 @@ public class ActionItemsScreen extends Pane {
 
 		// Set up the selection ComboBox - Modified for Della02
 		loadComboBoxData(aiM.getActionItemNames(), aiM.getActionItemIndex(aiM.getCurrentActionItemName()));
-
+		//Added for Della05
+		loadAssignedMemberComboBox();
 		updatingGUI = false;
 	}
 
@@ -557,6 +612,10 @@ public class ActionItemsScreen extends Pane {
 						statusComboBox.getSelectionModel().select(ActionItemManager.statusClosed);
 					else
 						statusComboBox.getSelectionModel().select(ActionItemManager.statusOpen);
+					//Added for Della05 Define an assigned member selection
+					int selectedMemberIndex= aiM.getCurrentAssignedMemberIndex();
+					aiM.getMemberList().setCurrentSelectedElementIndex(selectedMemberIndex);
+					assignedToMemberComboBox.getSelectionModel().select(selectedMemberIndex);
 				}
 				// The selected action item has changed so the state has changed
 				theController.setDirtyFlag(true);
@@ -647,6 +706,51 @@ public class ActionItemsScreen extends Pane {
 			aiListComboBox.getSelectionModel().select(newIndex);
 		}
 	}
+	//Added for Della05
+	private void selectMemberComboBox() {
+		if (updatingGUI == false) {
+			updatingGUI = true;
+			ElementList memberList= aiM.getMemberList();
+			int listSize= assignedToMemberComboBox.getItems().size();
+			int selectedMemberIndex=assignedToMemberComboBox.getSelectionModel().getSelectedIndex();
+			if (selectedMemberIndex > noItemSelected &&  selectedMemberIndex<listSize) {
+				selectedMember=assignedToMemberComboBox.getSelectionModel().getSelectedItem().toString();
+				memberList.setCurrentSelectedElementIndex(selectedMemberIndex);
+			}else {
+				memberList.setCurrentSelectedElementIndex(noItemSelected);
+				assignedToMemberComboBox.getSelectionModel().clearSelection(noItemSelected);
+				selectedMember="";
+			}
+			theController.setDirtyFlag(true);
+			updatingGUI = false;
+			checkForUnsavedUpdates();
+		}	
+
+
+	}
+
+	//Added for Della05 load data into the comboBox
+	public void loadAssignedMemberComboBox() { 
+		// Set the flag so that no select events are processed by these actions
+		//	ElementList memberList = aiM.getMemberList();
+		// Fetch the list of members to populate the select list
+		updatingGUI = true;
+		// Reset the select list so it contains no elements
+		assignedToMemberComboBox.getItems().clear();
+		// Fetch the size of the list of members and use this to iterate over all
+		// members
+		int listSize = aiM.getMemberListSize();
+		for (int i = 0; i < listSize; i++) 
+			assignedToMemberComboBox.getItems().add(aiM.getMember(i));
+		assignedToMemberComboBox.getItems().add("No Member Selected");
+
+		int selectedMemberIndex= aiM.getCurrentAssignedMemberIndex();
+		aiM.getMemberList().setCurrentSelectedElementIndex(selectedMemberIndex);
+		assignedToMemberComboBox.getSelectionModel().select(selectedMemberIndex);
+		updatingGUI = false;
+
+	}
+
 
 	/**
 	 * Any number of events has occurred that could change the display. See if the
@@ -662,15 +766,16 @@ public class ActionItemsScreen extends Pane {
 				&& descriptionTextArea.getText().equals(aiM.getCurrentActionItem().getDescription())
 				&& resolutionTextArea.getText().equals(aiM.getCurrentActionItem().getResolution())
 				&& dueDateTextField.getText()
-						.equals(aiM.getCurrentActionItem().getDueDate() != null
-								? dateFormat.format(aiM.getCurrentActionItem().getDueDate())
-								: "")
+				.equals(aiM.getCurrentActionItem().getDueDate() != null
+				? dateFormat.format(aiM.getCurrentActionItem().getDueDate())
+						: "")
 				&& ((statusComboBox.getSelectionModel().getSelectedIndex() == 0
-						&& aiM.getCurrentActionItem().getStatus().equals(""))
+				&& aiM.getCurrentActionItem().getStatus().equals(""))
 						|| (statusComboBox.getSelectionModel().getSelectedIndex() == 0
-								&& aiM.getCurrentActionItem().getStatus().equals("Open"))
+						&& aiM.getCurrentActionItem().getStatus().equals("Open"))
 						|| (statusComboBox.getSelectionModel().getSelectedIndex() == 1
-								&& aiM.getCurrentActionItem().getStatus().equals("Closed")))) {
+						&& aiM.getCurrentActionItem().getStatus().equals("Closed")))
+				&& aiM.getCurrentAssignedMember().equals(assignedToMemberComboBox.getSelectionModel().getSelectedItem())) {
 			unsavedChangesLabel.setText("");
 			aiM.setEditChangesPending(false);
 		} else {

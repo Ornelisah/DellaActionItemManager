@@ -12,7 +12,7 @@ import java.util.Date;
  * </p>
  *
  * <p>
- * Copyright: Copyright © 2005, 2006
+ * Copyright: Copyright ï¿½ 2005, 2006
  * </p>
  *
  * @author Harry Sameshima; Lynn Robert Carter
@@ -29,6 +29,11 @@ public class ActionItem {
 	private String status;
 	private Date dueDate;
 	private Date createdDate;
+	//Added for Della05 (start)
+	//public ActionItemManager aiM;
+	//ElementList memberList= null;
+	private String selectedMemberName;
+	//Added for Della05(end)
 	//---------------------------------------------------------------------------------------------------------------------
 
 	/**
@@ -38,15 +43,20 @@ public class ActionItem {
 	public ActionItem() {
 		actionItemName = description = resolution = status = "";
 		dueDate = createdDate = null;
+		//della05
+		//memberList= new ElementList(); 
+		selectedMemberName="";
 	}
 
-	public ActionItem(String ai, String desc, String res, String stat) {
+	public ActionItem(String ai, String desc, String res, String stat, String selectMembName) {
 
 		actionItemName = ai;
 		description = desc;
 		resolution = res;
 		status = stat;
 		createdDate = new Date();
+	//	memberList=aiM.getMemberList();
+		selectedMemberName=selectMembName;
 	}
 
 	// Just the usual getters and setters
@@ -73,4 +83,19 @@ public class ActionItem {
 	public void setDueDate(Date x) { dueDate = x; }
 
 	public void setCreatedDate(Date x) { createdDate = x; }
+
+	//Added for Della05
+	public String getSelectedMemberName() {
+		return selectedMemberName;
+		/*if (selectedMemberName.equalsIgnoreCase("-No Member Selected-"))
+			return selectedMemberName;
+		else	
+			return aiM.getCurrentAssignedMember();*/
+	
+	}
+
+	public void setSelectedMemberName(String selectedMemberName) {
+		this.selectedMemberName = selectedMemberName;
+	}
+
 }

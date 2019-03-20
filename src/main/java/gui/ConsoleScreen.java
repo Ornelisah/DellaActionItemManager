@@ -68,13 +68,18 @@ public class ConsoleScreen extends Pane {
 			.observableArrayList(ActionItemManager.sortDirectionStrings);
 	ComboBox<String> sortDirectionComboBox = new ComboBox<String>(sort_direction_options);
 
-	ObservableList<String> sort_factor1_options = FXCollections
+	ObservableList<String> sort_factor1_options = FXCollections                                                    
 			.observableArrayList(ActionItemManager.sortingFactorStrings);
 	ComboBox<String> sortFactor1ComboBox = new ComboBox<String>(sort_factor1_options);
 
 	ObservableList<String> sort_factor2_options = FXCollections
 			.observableArrayList(ActionItemManager.sortingFactorStrings);
 	ComboBox<String> sortFactor2ComboBox = new ComboBox<String>(sort_factor2_options);
+
+	//Added for Della05
+	Label assignedToMemberLabel = new Label();
+	Label assignedMemberValue = new Label();
+	//Added for Della05
 
 	Label firstSortingLabel = new Label();
 	Label secondSortingLabel = new Label();
@@ -146,7 +151,7 @@ public class ConsoleScreen extends Pane {
 			selectActionItem();
 		});
 		aiSelectList.setMinWidth(435);
-		
+
 		scrollableListPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 		scrollableListPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 		scrollableListPane.setContent(aiSelectList);
@@ -169,9 +174,9 @@ public class ConsoleScreen extends Pane {
 		sortDirectionComboBox.setMinHeight(25);
 		sortDirectionComboBox.setMaxHeight(25);
 		sortDirectionComboBox.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> {
-					sortDirection();
-				});
+		.addListener((observable, oldValue, newValue) -> {
+			sortDirection();
+		});
 
 		firstSortingLabel.setFont(Font.font("Dialog", FontWeight.BOLD, 11));
 		firstSortingLabel.setText("First Sorting Factor:");
@@ -315,6 +320,25 @@ public class ConsoleScreen extends Pane {
 		statusValueLabel.setMaxHeight(16);
 		// Added for Della03 (end)
 
+		//Added for Della05 (start)
+		assignedToMemberLabel.setFont(Font.font("Dialog", FontWeight.BOLD, 11));
+		assignedToMemberLabel.setText("Assigned to Member: ");
+		assignedToMemberLabel.setLayoutX(450);
+		assignedToMemberLabel.setLayoutY(330);
+		assignedToMemberLabel.setMinWidth(200);
+		assignedToMemberLabel.setMaxWidth(200);
+		assignedToMemberLabel.setMinHeight(15);
+		assignedToMemberLabel.setMaxHeight(15);
+
+
+		assignedMemberValue.setFont(Font.font("Dialog", FontWeight.NORMAL, 11));
+		assignedMemberValue.setLayoutX(455);
+		assignedMemberValue.setLayoutY(350);
+		assignedMemberValue.setMinWidth(200);
+		assignedMemberValue.setMaxWidth(200);
+		assignedMemberValue.setMinHeight(15);
+		assignedMemberValue.setMaxHeight(15);
+		//Added for Della05 (end)
 		copyrightLabel.setFont(Font.font("Dialog", FontWeight.BOLD, 11));
 		copyrightLabel.setAlignment(Pos.BASELINE_RIGHT);
 		copyrightLabel.setText("Copyright © 2019 OrnellaElisah");
@@ -337,7 +361,7 @@ public class ConsoleScreen extends Pane {
 				sortDirectionComboBox, firstSortingLabel, sortFactor1ComboBox, secondSortingLabel, sortFactor2ComboBox,
 				selectedLabel, nameLabel, nameTextField, descriptionLabel, descriptionScrollPane, resolutionLabel,
 				resolutionScrollPane, datesLabel, creationDateLabel, creationDateValueLabel, dueLabel, dueDateTextLabel,
-				actionItemLabel2, statusLabel, statusValueLabel, copyrightLabel, logo); // Added Della03 controls
+				actionItemLabel2, statusLabel, statusValueLabel, copyrightLabel, logo,assignedToMemberLabel,assignedMemberValue); // Added Della03 controls
 
 	}
 
@@ -375,6 +399,20 @@ public class ConsoleScreen extends Pane {
 				statusValueLabel.setText("Closed");
 			else
 				statusValueLabel.setText("Open");
+			//Added for Della05
+			/*if(aiM.getCurrentAssignedMember()!=null)
+			assignedMemberValue.setText(aiM.getCurrentAssignedMemberIndex());
+			else assignedMemberValue.setText("-No Member Selected-");*/
+			String memberName= selectedAI.getSelectedMemberName();
+			if (memberName.length()==0) {
+				assignedMemberValue.setText("-No Member Selected-");
+				aiM.getMemberList().setCurrentSelectedElementIndex(noItemSelected);
+			}
+			else {
+				assignedMemberValue.setText(selectedAI.getSelectedMemberName());
+				int selectedIndex=aiM.getMemberList().findElement(memberName);
+				aiM.getMemberList().setCurrentSelectedElementIndex(selectedIndex);
+			}
 
 			// The selected action item has changed so the state has changed
 			theController.setDirtyFlag(true);
@@ -492,6 +530,7 @@ public class ConsoleScreen extends Pane {
 		statusValueLabel.setText("Open");
 		creationDateValueLabel.setText("");
 		creationDateValueLabel.setText("");
+		assignedMemberValue.setText("-No Member Selected-");
 		updatingGUI = false;
 	}
 
@@ -529,6 +568,11 @@ public class ConsoleScreen extends Pane {
 				dueDateTextLabel.setText(dateFormat.format(ai.getDueDate()));
 			else
 				creationDateValueLabel.setText("");
+			String name=ai.getSelectedMemberName();
+			if (name.length()==0)
+				assignedMemberValue.setText("No Member Selected");
+			else
+				assignedMemberValue.setText(name);
 		}
 		// Set up the selection ComboBoxes and the select list - Modified for Della03
 		sortDirectionComboBox.getSelectionModel().select(aiM.getSortDirection());

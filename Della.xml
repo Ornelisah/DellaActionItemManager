@@ -5,92 +5,50 @@
       <aiList>
         <model.ActionItem>
           <actionItemName>One</actionItemName>
-          <description>OneD</description>
-          <resolution>OneR</resolution>
+          <description></description>
+          <resolution></resolution>
           <status>Open</status>
-          <dueDate>2018-10-14 18:30:00.0 UTC</dueDate>
-          <createdDate>2018-10-14 05:56:00.972 UTC</createdDate>
+          <dueDate>2018-02-14 18:30:00.0 UTC</dueDate>
+          <createdDate>2019-03-20 06:27:06.665 UTC</createdDate>
+          <selectedMemberName>Hans</selectedMemberName>
         </model.ActionItem>
         <model.ActionItem>
-          <actionItemName>Two</actionItemName>
-          <description>TwoD</description>
-          <resolution>TwoR</resolution>
+          <actionItemName>Elisah</actionItemName>
+          <description></description>
+          <resolution></resolution>
           <status>Open</status>
-          <dueDate>2018-10-15 18:30:00.0 UTC</dueDate>
-          <createdDate>2018-10-14 05:56:19.73 UTC</createdDate>
-        </model.ActionItem>
-        <model.ActionItem>
-          <actionItemName>Three</actionItemName>
-          <description>ThreeD</description>
-          <resolution>ThreeR</resolution>
-          <status>Open</status>
-          <dueDate>2018-10-16 18:30:00.0 UTC</dueDate>
-          <createdDate>2018-10-14 05:56:41.111 UTC</createdDate>
-        </model.ActionItem>
-        <model.ActionItem>
-          <actionItemName>Four</actionItemName>
-          <description>FourD</description>
-          <resolution>FourR</resolution>
-          <status>Open</status>
-          <createdDate>2019-03-15 07:35:33.793 UTC</createdDate>
-        </model.ActionItem>
-        <model.ActionItem>
-          <actionItemName>Five</actionItemName>
-          <description>FiveD</description>
-          <resolution>FiveR</resolution>
-          <status>Open</status>
-          <createdDate>2019-03-15 07:35:50.298 UTC</createdDate>
-        </model.ActionItem>
-        <model.ActionItem>
-          <actionItemName>Six</actionItemName>
-          <description>SixD</description>
-          <resolution>SixR</resolution>
-          <status>Open</status>
-          <createdDate>2019-03-15 07:36:03.626 UTC</createdDate>
+          <dueDate>2019-06-12 18:30:00.0 UTC</dueDate>
+          <createdDate>2019-03-20 06:27:25.815 UTC</createdDate>
+          <selectedMemberName>Ornella</selectedMemberName>
         </model.ActionItem>
       </aiList>
-      <currentActionItem reference="../aiList/model.ActionItem[4]"/>
+      <currentActionItem reference="../aiList/model.ActionItem"/>
       <emptyActionItem>
         <actionItemName></actionItemName>
         <description></description>
         <resolution></resolution>
         <status></status>
+        <selectedMemberName></selectedMemberName>
       </emptyActionItem>
       <accessManager>
         <accessList>
-          <model.AccessItem>
-            <name>Five</name>
-            <nameIndex>4</nameIndex>
-          </model.AccessItem>
-          <model.AccessItem>
-            <name>Four</name>
-            <nameIndex>3</nameIndex>
-          </model.AccessItem>
           <model.AccessItem>
             <name>One</name>
             <nameIndex>0</nameIndex>
           </model.AccessItem>
           <model.AccessItem>
-            <name>Six</name>
-            <nameIndex>5</nameIndex>
-          </model.AccessItem>
-          <model.AccessItem>
-            <name>Three</name>
-            <nameIndex>2</nameIndex>
-          </model.AccessItem>
-          <model.AccessItem>
-            <name>Two</name>
+            <name>Elisah</name>
             <nameIndex>1</nameIndex>
           </model.AccessItem>
         </accessList>
       </accessManager>
-      <sortDirection>0</sortDirection>
+      <sortDirection>1</sortDirection>
       <sortFactor1>0</sortFactor1>
       <sortFactor2>0</sortFactor2>
       <memberList>
         <theList>
           <model.Element>
-            <name>First</name>
+            <name>Hans</name>
             <numAssociatedNames>0</numAssociatedNames>
             <associatedName>
               <null/>
@@ -106,7 +64,7 @@
             </associatedName>
           </model.Element>
           <model.Element>
-            <name>Last</name>
+            <name>Ornella</name>
             <numAssociatedNames>0</numAssociatedNames>
             <associatedName>
               <null/>
@@ -122,8 +80,8 @@
             </associatedName>
           </model.Element>
         </theList>
-        <unaddedName>Second</unaddedName>
-        <currentSelectedElementIndex>-1</currentSelectedElementIndex>
+        <unaddedName></unaddedName>
+        <currentSelectedElementIndex>0</currentSelectedElementIndex>
       </memberList>
     </actionItemManager>
   </control.Controller>
